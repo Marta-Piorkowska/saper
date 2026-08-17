@@ -113,14 +113,14 @@ const App = () => {
             onClick={() => handleReveal(index)}
             onContextMenu={(event) => handleFlag(event, index)}
           >
-            {cell.flagged
-              ? '🚩'
-              : board.state === 'lost' && cell.mine
-                ? '💣'
+            {board.state === 'lost' && cell.mine
+              ? cell.flagged
+                ? '🚩💣'
+                : '💣'
+              : cell.flagged
+                ? '🚩'
                 : cell.revealed
-                  ? cell.mine
-                    ? '💣'
-                    : cell.adjacent || ''
+                  ? cell.adjacent || ''
                   : ''}
           </button>
         ))}

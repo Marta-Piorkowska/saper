@@ -125,3 +125,29 @@ it('loses when chording with an incorrectly placed flag', () => {
 
    expect(chordedBoard.state).toBe('lost')
 })
+
+describe('createBoard', () => {
+   it('ignores duplicate mines and mines outside the board', () => {
+      const level: Level = {
+         id: 'test',
+         name: 'Test',
+         width: 3,
+         height: 3,
+         mineCount: 4,
+         mines: [
+            [0, 0],
+            [0, 0],
+            [2, 2],
+            [3, 1],
+         ],
+      }
+
+      const board = createBoard(level)
+
+      const mines = board.cells.filter((cell) => cell.mine)
+
+      expect(mines).toHaveLength(2)
+      expect(board.cells[0].mine).toBe(true)
+      expect(board.cells[8].mine).toBe(true)
+   })
+})
